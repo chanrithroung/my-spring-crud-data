@@ -2,12 +2,12 @@ package com.example.crud.controller;
 
 import com.example.crud.CrudApplication;
 import com.example.crud.dto.StudentDTO;
-import com.example.crud.mapper.StudentMapper;
 import com.example.crud.services.StudentService;
 import com.example.crud.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -52,5 +52,11 @@ public class StudentController {
         return studentService.updateStudent(id, studentDTO);
     }
 
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable String id) {
+        return studentService.deleteStudent(id);
+    }
 
 }

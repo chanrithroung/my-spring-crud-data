@@ -1,6 +1,4 @@
 package com.example.crud.dto;
-
-
 import lombok.*;
 
 import java.time.LocalDate;

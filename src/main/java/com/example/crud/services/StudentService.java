@@ -3,8 +3,10 @@ import com.example.crud.dto.StudentDTO;
 import com.example.crud.mapper.StudentMapper;
 import com.example.crud.repository.StudentRepository;
 import com.example.crud.model.Student;
+import com.example.crud.studentException.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
@@ -59,8 +61,18 @@ public class StudentService {
             return studentRepository.save(existingStudent);
         }
 
-        throw new RuntimeException("Student not found with id : " + id);
+        throw new StudentNotFoundException("Student not found with id : " + id);
 
+    }
+
+    public ResponseEntity<String> deleteStudent(String id) {
+        Optional<Student> existingStudentOpt = studentRepository.findById(id);
+        if (existingStudentOpt.isPresent()) {
+            studentRepository.deleteById(id);
+            return new ResponseEntity<String>("Student deleted successfully.",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Student Not found", HttpStatus.NOT_FOUND);
+        }
     }
 
 
